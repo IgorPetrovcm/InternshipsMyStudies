@@ -18,6 +18,16 @@ public class MainMenuView{
 
         LinkedListNode<UserPoint> point = points.First;
 
+        _executablePoints.Add(point, () => {
+            
+        });
+
+        point = point.Next;
+
+        _executablePoints.Add(point, () => {
+            System.Environment.Exit(0);
+        });
+
         while (point != null){
             _executablePoints.Add(point, () => {
                 System.Environment.Exit(-1);
