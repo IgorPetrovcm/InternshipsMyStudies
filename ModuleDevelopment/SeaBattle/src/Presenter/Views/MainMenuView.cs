@@ -18,7 +18,7 @@ public class MainMenuView : IView{
 
         this.points = points;
 
-        Action[] actionsArr = (Action[])actions;
+        List<Action> actionsArr = actions.ToList();
 
         _executablePoints = new Dictionary<LinkedListNode<UserPoint>, Action>();
 
@@ -53,6 +53,8 @@ public class MainMenuView : IView{
         LinkedListNode<UserPoint>? selectedPoint = points.First;
         
         while (true){
+            Console.Clear();
+
             ConsolePrinter.Print(
                 linkedPoints: points,
                 specifyPoint: selectedPoint,
