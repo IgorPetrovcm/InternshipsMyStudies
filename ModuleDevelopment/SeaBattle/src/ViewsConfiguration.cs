@@ -20,14 +20,18 @@ public class ViewsConfiguration{
         LinkedList<UserPoint> points = new LinkedList<UserPoint>(userPoints);
 
         List<Action> actions = new List<Action>(2){
-            () => new RequestFromView(typeof(GameWithBotView)),
+            () => new RequestFromView(null),
             () => System.Environment.Exit(0)
         };
 
         return new MainMenuView(
-            markup: markup,
             points: points,
             actions: actions
         );
     }
+
+    // [ContextComponent(typeof(GamePreparationView))]
+    // public IView supplyGamePreparation(){
+    //     int[,] battleMap
+    // }
 }

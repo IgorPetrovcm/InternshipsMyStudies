@@ -85,4 +85,18 @@ public static class ConsolePrinter{
 
         Console.ResetColor();
     }
+
+    public static void Print(
+        List<UserPoint> nonInteractivePoints
+    ){
+        Console.ForegroundColor = ConsoleColor.Gray;
+        
+        foreach (UserPoint point in nonInteractivePoints){
+            Console.SetCursorPosition(point.Left, point.Top);
+
+            Console.WriteLine(point.Title);
+        }
+
+        Console.ResetColor();
+    }
 }

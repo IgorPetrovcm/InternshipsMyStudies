@@ -3,19 +3,15 @@ namespace SeaBattle.Presenter.Views;
 using SeaBattle.Presenter.Markups;
 
 public class MainMenuView : IView{
-    private readonly IConsoleMarkup markup;
-
     private readonly LinkedList<UserPoint> points;
 
     private Dictionary<LinkedListNode<UserPoint>, Action> _executablePoints;
 
-    public MainMenuView(IConsoleMarkup markup, LinkedList<UserPoint> points, IEnumerable<Action> actions){
+    public MainMenuView(LinkedList<UserPoint> points, IEnumerable<Action> actions){
         if (points.Count != actions.Count()){
             throw new ArgumentException("The number of points and number of actions must match");
         }
         
-        this.markup = markup;
-
         this.points = points;
 
         List<Action> actionsArr = actions.ToList();
@@ -29,24 +25,6 @@ public class MainMenuView : IView{
 
             point = point.Next;
         }
-
-        // _executablePoints.Add(point, () => {
-            
-        // });
-
-        // point = point.Next;
-
-        // _executablePoints.Add(point, () => {
-        //     System.Environment.Exit(0);
-        // });
-
-        // while (point != null){
-        //     _executablePoints.Add(point, () => {
-        //         System.Environment.Exit(-1);
-        //     });
-
-        //     point = point.Next;
-        // }
     }
 
     public RequestFromView Launch(){

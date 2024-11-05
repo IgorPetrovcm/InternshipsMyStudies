@@ -7,32 +7,60 @@ using SeaBattle.Context;
 using System.Reflection;
 using SeaBattle.Context;
 using SeaBattle.Presenter.Context;
+using System.Data;
 
 public class Program{
 
     public static void Main(){
 
-        SeaBattleApplication battleApplication = new SeaBattleApplication(typeof(ViewsConfiguration));
+        // SeaBattleApplication battleApplication = new SeaBattleApplication(typeof(ViewsConfiguration));
 
-        ViewsContext viewsContext = new ViewsContext(battleApplication.Supply<IView>());
+        // ViewsContext viewsContext = new ViewsContext(battleApplication.Supply<IView>());
 
-        viewsContext.View(typeof(MainMenuView));
-    //     IConsoleMarkup markup = new MenuConsoleMarkup();
-
-    //     List<UserPoint> userPoints = new List<UserPoint>(){
-    //         markup.InsertPoint("Start game with Bot"),
-    //         markup.InsertPoint("Exit")
-    //     };
-
-    //     LinkedList<UserPoint> linkedUserPoints = new LinkedList<UserPoint>(userPoints);
-
-    //     Console.Clear();
-
-    //     MainMenuView menu = new MainMenuView(markup, linkedUserPoints);
-
-    //     menu.Launch();
-
+        // viewsContext.View(typeof(MainMenuView));
         
-    
+        Console.Clear();
+        
+        int[,] battleMap = new int[10,10];
+
+        int currentLeft = Console.CursorLeft + 4;
+        int currentTop = Console.CursorTop + 1;
+
+        for (int i = 0; i < 10; i++){
+            int tempLeft = currentLeft;
+            int tempTop = currentTop;
+            
+            for (int j = 0; j < 10; j++){
+                Console.SetCursorPosition(tempLeft, tempTop);
+
+                battleMap[i,j] = 0;
+
+                if (i == 5 && j == 5){
+                    Console.ForegroundColor = ConsoleColor.Green;
+                }
+
+                Console.Write("E");
+                Console.SetCursorPosition(tempLeft - 1, tempTop + 1);
+                Console.Write("EEE");
+                Console.SetCursorPosition(tempLeft, tempTop + 2);
+                Console.Write("E");
+
+                Console.ResetColor();
+
+                tempLeft += 8;
+            }
+
+            currentTop += 4;
+        }
+
+        while (true){
+            ConsoleKeyInfo keyInfo = Console.ReadKey();
+
+            switch (keyInfo.Key){
+                case ConsoleKey.UpArrow:
+                    
+            }
+        }
+        
     }
 }
