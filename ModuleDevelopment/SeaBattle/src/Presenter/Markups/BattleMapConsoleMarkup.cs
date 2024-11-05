@@ -8,7 +8,10 @@ public class BattleMapConsoleMarkup : IConsoleMarkup{
 
     private int _iteratorCount;
 
+    private int _fixedIteratorCount;
+
     public BattleMapConsoleMarkup(int iteratorCount){
+        _fixedIteratorCount = iteratorCount;
         _iteratorCount = iteratorCount;
     }  
 
@@ -17,17 +20,19 @@ public class BattleMapConsoleMarkup : IConsoleMarkup{
 
         userPoint.Title = title;
 
-        userPoint.Left = _currentLeft + (_iteratorCount * 8);
+        userPoint.Left = _currentLeft + (Math.Abs(_iteratorCount - _fixedIteratorCount) * 8);
 
         userPoint.Top = _currentTop;
 
-        if (_iteratorCount == 9){
+        if (_iteratorCount == 0){
             userPoint.Top += 4;
 
-            _iteratorCount = 0;
-        }
+            _currentTop += 4;
 
-        _iteratorCount++;
+            _iteratorCount = _fixedIteratorCount;
+        }
+    
+        _iteratorCount--;
 
         return userPoint;
     }

@@ -30,8 +30,26 @@ public class ViewsConfiguration{
         );
     }
 
-    // [ContextComponent(typeof(GamePreparationView))]
-    // public IView supplyGamePreparation(){
-    //     int[,] battleMap
-    // }
+    [ContextComponent(typeof(GamePreparationView))]
+    public IView supplyGamePreparation(){
+        const int pointMultiplier = 10;
+
+        IConsoleMarkup markup = new BattleMapConsoleMarkup(10);
+        
+        UserPoint[,] battleMap = new UserPoint[pointMultiplier, pointMultiplier];
+        Action[,] battleMapActions = new Action[pointMultiplier, pointMultiplier];
+
+        for (int i = 0; i < pointMultiplier; i++){
+            for (int j = 0; j < pointMultiplier; j++){
+                battleMapActions[i, j] = () => {}; 
+                battleMap[i, j] = markup.InsertPoint("E");
+            }
+        }
+
+        return new GamePreparationView(
+            battleMap,
+            battleMapActions,
+            pointMultiplier
+        );
+    }
 }

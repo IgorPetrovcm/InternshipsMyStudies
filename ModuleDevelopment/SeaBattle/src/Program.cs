@@ -13,54 +13,54 @@ public class Program{
 
     public static void Main(){
 
-        // SeaBattleApplication battleApplication = new SeaBattleApplication(typeof(ViewsConfiguration));
+        SeaBattleApplication battleApplication = new SeaBattleApplication(typeof(ViewsConfiguration));
 
-        // ViewsContext viewsContext = new ViewsContext(battleApplication.Supply<IView>());
+        ViewsContext viewsContext = new ViewsContext(battleApplication.Supply<IView>());
 
-        // viewsContext.View(typeof(MainMenuView));
+        viewsContext.View(typeof(GamePreparationView));
         
-        Console.Clear();
+        // Console.Clear();
         
-        int[,] battleMap = new int[10,10];
+        // int[,] battleMap = new int[10,10];
 
-        int currentLeft = Console.CursorLeft + 4;
-        int currentTop = Console.CursorTop + 1;
+        // int currentLeft = Console.CursorLeft + 4;
+        // int currentTop = Console.CursorTop + 1;
 
-        for (int i = 0; i < 10; i++){
-            int tempLeft = currentLeft;
-            int tempTop = currentTop;
+        // for (int i = 0; i < 10; i++){
+        //     int tempLeft = currentLeft;
+        //     int tempTop = currentTop;
             
-            for (int j = 0; j < 10; j++){
-                Console.SetCursorPosition(tempLeft, tempTop);
+        //     for (int j = 0; j < 10; j++){
+        //         Console.SetCursorPosition(tempLeft, tempTop);
 
-                battleMap[i,j] = 0;
+        //         battleMap[i,j] = 0;
 
-                if (i == 5 && j == 5){
-                    Console.ForegroundColor = ConsoleColor.Green;
-                }
+        //         if (i == 5 && j == 5){
+        //             Console.ForegroundColor = ConsoleColor.Green;
+        //         }
 
-                Console.Write("E");
-                Console.SetCursorPosition(tempLeft - 1, tempTop + 1);
-                Console.Write("EEE");
-                Console.SetCursorPosition(tempLeft, tempTop + 2);
-                Console.Write("E");
+        //         Console.Write("E");
+        //         Console.SetCursorPosition(tempLeft - 1, tempTop + 1);
+        //         Console.Write("EEE");
+        //         Console.SetCursorPosition(tempLeft, tempTop + 2);
+        //         Console.Write("E");
 
-                Console.ResetColor();
+        //         Console.ResetColor();
 
-                tempLeft += 8;
-            }
+        //         tempLeft += 8;
+        //     }
 
-            currentTop += 4;
-        }
+        //     currentTop += 4;
+        // }
 
-        while (true){
-            ConsoleKeyInfo keyInfo = Console.ReadKey();
+        // while (true){
+        //     ConsoleKeyInfo keyInfo = Console.ReadKey();
 
-            switch (keyInfo.Key){
-                case ConsoleKey.UpArrow:
+        //     switch (keyInfo.Key){
+        //         case ConsoleKey.UpArrow:
                     
-            }
-        }
+        //     }
+        // }
         
     }
 }

@@ -87,14 +87,34 @@ public static class ConsolePrinter{
     }
 
     public static void Print(
-        List<UserPoint> nonInteractivePoints
+        UserPoint[,] twoDimensionalPoints,
+        int pointMultiplier,
+        ConsoleColor defaultColor
     ){
-        Console.ForegroundColor = ConsoleColor.Gray;
-        
-        foreach (UserPoint point in nonInteractivePoints){
-            Console.SetCursorPosition(point.Left, point.Top);
+        Console.ForegroundColor = defaultColor;
 
-            Console.WriteLine(point.Title);
+        for (int i = 0; i < pointMultiplier; i++){
+            for (int j = 0; j < pointMultiplier; j++){
+                UserPoint point = twoDimensionalPoints[i, j];
+                
+                Console.SetCursorPosition(
+                    point.Left,
+                    point.Top
+                );
+                Console.Write(point.Title);
+
+                Console.SetCursorPosition(
+                    point.Left - 1,
+                    point.Top + 1
+                );
+                Console.Write(String.Concat(Enumerable.Repeat(point.Title, 3)));
+
+                Console.SetCursorPosition(
+                    point.Left,
+                    point.Top + 2
+                );
+                Console.Write(point.Title);
+            }
         }
 
         Console.ResetColor();
