@@ -1,10 +1,32 @@
+using System.Security.Cryptography.X509Certificates;
+
 namespace SeaBattle.Core.UseCase.Port;
 
 public class ShipRules{
     private readonly ShipMap Map;
 
+    private Dictionary<SideDirection, Func<Tuple<int,int>, Tuple<int,int>>> sideShiftFuncs = 
+        new Dictionary<SideDirection, Func<Tuple<int, int>, Tuple<int, int>>>{
+            { SideDirection.Down, (x) => {
+                return Tuple.Create(x.Item1 + 1, x.Item2);
+            }},
+            { SideDirection.Up, (x) => {
+                return Tuple.Create(x.Item1 - 1, x.Item2);
+            }},
+            { SideDirection.Left, (x) => {
+                return Tuple.Create(x.Item1, x.Item2 - 1);
+            }},
+            { SideDirection.Right, (x) => {
+                return Tuple.Create(x.Item1, x.Item2 + 1);
+            }}
+        };
+
     public ShipRules(ShipMap map){
         Map = map;
+    }
+
+    public Func<Tuple<int,int>, Tuple<int,int>> FactoryOfSideShiftFuncs(SideDirection sideDirection){
+        return sideShiftFuncs[sideDirection];
     }
 
     public bool IsInsert(int line, int column){

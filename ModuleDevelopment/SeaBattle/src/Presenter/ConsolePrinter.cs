@@ -177,6 +177,8 @@ public static class ConsolePrinter{
                 PrintBattleMap(twoDimensionalPoints[i, j]);
             }
         }
+
+        Console.ResetColor();
     }
     
     private static void PrintBattleMap(UserPoint point){

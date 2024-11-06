@@ -21,13 +21,13 @@ public class BattleMapConsoleMarkup : IConsoleMarkup{
         if (_iteratorCount == 0){
             userPoint.Top += 4;
 
-            _currentTop += 4;
+            _currentTop += 2;
 
             _iteratorCount = _fixedIteratorCount;
         }
         userPoint.Title = title;
 
-        userPoint.Left = _currentLeft + (Math.Abs(_iteratorCount - _fixedIteratorCount) * 8);
+        userPoint.Left = _currentLeft + (Math.Abs(_iteratorCount - _fixedIteratorCount) * 5);
 
         userPoint.Top = _currentTop;
     

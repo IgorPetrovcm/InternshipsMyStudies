@@ -1,8 +1,8 @@
 namespace SeaBattle.Core;
 
 public enum SideDirection{
-    Up,
-    Down,
+    Up, 
     Left,
+    Down,
     Right
 }

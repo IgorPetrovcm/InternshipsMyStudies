@@ -4,6 +4,10 @@ using SeaBattle.Context;
 using SeaBattle.Presenter.Views;
 using SeaBattle.Presenter.Markups;
 using SeaBattle.Presenter;
+using SeaBattle.Core;
+using SeaBattle.Core.UseCase;
+using SeaBattle.Core.UseCase.Port;
+
 
 [ViewConfigurationContext]
 public class ViewsConfiguration{
@@ -32,6 +36,8 @@ public class ViewsConfiguration{
 
     [ContextComponent(typeof(GamePreparationView))]
     public IView supplyGamePreparation(){
+        ShipMap map = new ShipMap();
+        
         const int pointMultiplier = 10;
 
         IConsoleMarkup markup = new BattleMapConsoleMarkup(10);
@@ -42,14 +48,15 @@ public class ViewsConfiguration{
         for (int i = 0; i < pointMultiplier; i++){
             for (int j = 0; j < pointMultiplier; j++){
                 battleMapActions[i, j] = () => {}; 
-                battleMap[i, j] = markup.InsertPoint("E");
+                battleMap[i, j] = markup.InsertPoint("#");
             }
         }
 
         return new GamePreparationView(
             battleMap,
             battleMapActions,
-            pointMultiplier
+            pointMultiplier,
+            new MapEditor(map, new ShipRules(map))
         );
     }
 }
