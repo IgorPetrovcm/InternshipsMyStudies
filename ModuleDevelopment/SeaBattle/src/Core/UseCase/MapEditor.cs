@@ -14,14 +14,20 @@ public class MapEditor{
         Rules = rules;
     }
 
-    public Tuple<int, int> ShiftPointToSide(
+    public Tuple<int, int>? ShiftPointToSide(
         Tuple<int, int> point,
         SideDirection sideDirection
-    ){
-        return Rules.FactoryOfSideShiftFuncs(sideDirection).Invoke(point);
+    ){    
+        Tuple<int, int> result = Rules.FactoryOfSideShiftFuncs(sideDirection).Invoke(point);     
+        
+        if (!Rules.IsInsert(result.Item1, result.Item2)){
+            return null;
+        } 
+
+        return result;
     }
 
-    public Tuple<int, int> ShiftPointToSide(
+    public Tuple<int, int>? ShiftPointToSide(
         Tuple<int, int> point,
         int numberOfDeck,
         SideDirection sourceSideDirection,
@@ -47,7 +53,15 @@ public class MapEditor{
             result = Rules.FactoryOfSideShiftFuncs(alternativeTargerSideDirection).Invoke(result);
         }
 
+        if (!Rules.IsInsert(result.Item1, result.Item2)){
+            return null;
+        }
+
         return result;
+    }
+
+    public void WritePoints(Tuple<int, int> point){
+        Map.Write(1, point.Item1, point.Item2);
     }
 
     public void RecognizePoints(

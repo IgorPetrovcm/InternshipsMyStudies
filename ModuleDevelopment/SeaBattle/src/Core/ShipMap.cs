@@ -11,6 +11,17 @@ public class ShipMap{
     public ShipMap(){
         for (int i = 0; i < LINES; i++){
             for (int j = 0; j < COLUMNS; j++){
+                if ((i == 0 || i == 9) && (j == 0 || j == 9)){
+                    map[i,j] = 4;
+
+                    continue;
+                }
+                if (i == 0 || i == 9 || j == 0 || j == 9){
+                    map[i,j] = 2;
+
+                    continue;
+                }
+                
                 map[i,j] = 0;
             }
         }

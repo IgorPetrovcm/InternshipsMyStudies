@@ -29,11 +29,11 @@ public class GamePreparationView : IView{
             }
         }
     }
+
+    Tuple<int, int> specifyPoint = new Tuple<int, int>(4, 4);
+    List<Tuple<int, int>> staticSpecifyPoints = new List<Tuple<int, int>>();
     
     public RequestFromView Launch(){
-        Tuple<int, int> specifyPoint = new Tuple<int, int>(4, 4);
-        Tuple<int, int>[] staticSpecifyPoints = { new Tuple<int, int>(1,2) };
-
         SideDirection currentSideDirection;
         
         while (true){
@@ -43,7 +43,7 @@ public class GamePreparationView : IView{
                 BattleMapPoints,
                 PointMultiplier,
                 specifyPoint,
-                staticSpecifyPoints,
+                staticSpecifyPoints.ToArray(),
                 ConsoleColor.Gray,
                 ConsoleColor.Yellow,
                 ConsoleColor.Green
@@ -53,16 +53,29 @@ public class GamePreparationView : IView{
             
             switch (keyInfo.Key){
                 case ConsoleKey.UpArrow:
-                    specifyPoint = MapUseCase.ShiftPointToSide(specifyPoint, SideDirection.Up);
+                    specifyPoint = 
+                        MapUseCase.ShiftPointToSide(specifyPoint, SideDirection.Up) 
+                        ?? specifyPoint;
                 break;
                 case ConsoleKey.DownArrow:
-                    specifyPoint = MapUseCase.ShiftPointToSide(specifyPoint, SideDirection.Down);
+                    specifyPoint = 
+                        MapUseCase.ShiftPointToSide(specifyPoint, SideDirection.Down) 
+                        ?? specifyPoint;
                 break;
                 case ConsoleKey.LeftArrow:
-                    specifyPoint = MapUseCase.ShiftPointToSide(specifyPoint, SideDirection.Left);
+                    specifyPoint = 
+                        MapUseCase.ShiftPointToSide(specifyPoint, SideDirection.Left) 
+                        ?? specifyPoint;
                 break;
                 case ConsoleKey.RightArrow:
-                    specifyPoint = MapUseCase.ShiftPointToSide(specifyPoint, SideDirection.Right);
+                    specifyPoint = 
+                        MapUseCase.ShiftPointToSide(specifyPoint, SideDirection.Right) 
+                        ?? specifyPoint;
+                break;
+                case ConsoleKey.Enter:
+                    staticSpecifyPoints.Add(specifyPoint);
+                    MapUseCase.WritePoints(specifyPoint);
+                    specifyPoint = Tuple.Create(4, 4);
                 break;
             }
         }

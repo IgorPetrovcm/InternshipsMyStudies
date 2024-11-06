@@ -30,23 +30,67 @@ public class ShipRules{
     }
 
     public bool IsInsert(int line, int column){
-        int sign = 1;
 
+        if (Map.Read(line, column) == 2){
+            if (column == 0){
+                return InsertAlgh(3, 2, 1, line, column, true);
+            }
+            else if (column == 9){
+                return InsertAlgh(3, 2, -1, line, column, true);
+            }
+            else if (line == 0){
+                return InsertAlgh(3, 1, 1, line, column, true);
+            }
+            else if (line == 9){
+                return InsertAlgh(3, 1, -1, line, column, true);
+            }
+        }
+        else if (Map.Read(line, column) == 4){
+            if (column == 0 && line == 0){
+                return InsertAlgh(2, 1, 1, line, column, false);
+            }
+            if (column == 9 && line == 0){
+                return InsertAlgh(2, 1, 1, line, column, true);
+            }
+            if (column == 0 && line == 9){
+                return InsertAlgh(2, 1, -1, line, column, true);
+            }
+            if (column == 9 && line == 9){
+                return InsertAlgh(2, 1, -1, line, column, false);
+            }
+        }
+        else {
+            return InsertAlgh(4, 2, 1, line, column, true);
+        }
+
+        return true;
+    }
+
+    private bool InsertAlgh(
+        int numberOfSide,
+        int columnCheckingCount,
+        int sign,
+        int line, int column,
+        bool isSignEditing
+    ){
         int pointSet = 0;
 
-        for (int i = 0; i < 4; i++){
-            if (i > 1){
+        for (int i = 0; i < numberOfSide; i++){
+            if (i > columnCheckingCount - 1){
                 pointSet = Map.Read(line, column + sign);
             }
+
             else {
                 pointSet = Map.Read(line + sign, column);
             }
 
-            if (pointSet != 0){
+            if (pointSet != 0 && pointSet != 2 && pointSet != 4){
                 return false;
             }
 
-            sign *= -1;
+            if (isSignEditing){
+                sign *= -1;
+            }
         }
         
         return true;
