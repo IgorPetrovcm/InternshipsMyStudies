@@ -21,6 +21,14 @@ public class ShipMap{
     }
 
     public int Read(int line, int column){
+        if (line < 0 || line > 9){
+            return -1;
+        }
+
+        if (column < 0 || column > 9){
+            return -1;
+        }
+        
         return map[line, column];
     }
 }

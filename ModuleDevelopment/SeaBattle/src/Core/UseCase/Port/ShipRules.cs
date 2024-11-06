@@ -7,6 +7,29 @@ public class ShipRules{
         Map = map;
     }
 
+    public bool IsInsert(int line, int column){
+        int sign = 1;
+
+        int pointSet = 0;
+
+        for (int i = 0; i < 4; i++){
+            if (i > 1){
+                pointSet = Map.Read(line, column + sign);
+            }
+            else {
+                pointSet = Map.Read(line + sign, column);
+            }
+
+            if (pointSet != 0){
+                return false;
+            }
+
+            sign *= -1;
+        }
+        
+        return true;
+    }
+
     public bool isInsert(Tuple<int, int>[] points){
         for (int i = 0; i < points.Length; i++){
             int line = points[i].Item1;
