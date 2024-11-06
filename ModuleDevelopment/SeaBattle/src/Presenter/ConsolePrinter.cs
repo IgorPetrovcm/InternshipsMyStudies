@@ -119,4 +119,22 @@ public static class ConsolePrinter{
 
         Console.ResetColor();
     }
+
+    public static void Print(
+        UserPoint[,] twoDimensionalPoints,
+        int pointMultiplier,
+        Tuple<int, int>[] specifyPoints,
+        ConsoleColor defaultColor,
+        ConsoleColor specifyColor
+    ){
+        Console.ForegroundColor = defaultColor;
+
+        for (int i = 0; i < pointMultiplier; i++){
+            for (int j = 0; j < pointMultiplier; j++){
+                UserPoint point = twoDimensionalPoints[i, j];
+
+                
+            }
+        }
+    }
 }

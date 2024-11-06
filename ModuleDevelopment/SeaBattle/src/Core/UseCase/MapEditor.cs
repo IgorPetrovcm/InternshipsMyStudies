@@ -9,7 +9,17 @@ public class MapEditor{
         Map = map;
     }
 
-    public void AddShip(int length, SideDirection direction, int line, int column){
+    public void RecognizePoints(
+        int line,
+        int column,
+        SideDirection direction,
+        int numberOfDecks
+    ){
         
     }
+
+    // public void AddShip(int length, SideDirection direction, int line, int column){
+        
+    // }
+
 }

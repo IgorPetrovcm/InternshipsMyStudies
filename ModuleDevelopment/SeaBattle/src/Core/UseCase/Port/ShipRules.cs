@@ -30,16 +30,26 @@ public class ShipRules{
         return true;
     }
 
-    public bool isInsert(Tuple<int, int>[] points){
-        for (int i = 0; i < points.Length; i++){
-            int line = points[i].Item1;
-            int column = points[i].Item2;
-            
-            if ((line != 0 || line != 9) && (column != 0 || column != 9)){
-
-            }
-        }
-
-        return false;
+    public void RecognizePoints(
+        int line,
+        int column,
+        SideDirection direction,
+        int numberOfDecks
+    ){
+        
     }
+
+
+    // public bool isInsert(Tuple<int, int>[] points){
+    //     for (int i = 0; i < points.Length; i++){
+    //         int line = points[i].Item1;
+    //         int column = points[i].Item2;
+            
+    //         if ((line != 0 || line != 9) && (column != 0 || column != 9)){
+
+    //         }
+    //     }
+
+    //     return false;
+    // }
 }

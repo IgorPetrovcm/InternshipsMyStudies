@@ -24,16 +24,14 @@ public class GamePreparationView : IView{
     }
     
     public RequestFromView Launch(){
-        Console.Clear();
+        while (true){
+            Console.Clear();
 
-        ConsolePrinter.Print(
-            BattleMapPoints,
-            PointMultiplier,
-            ConsoleColor.Gray
-        );
-
-        while (true);
-
-        return new RequestFromView(null);
+            ConsolePrinter.Print(
+                BattleMapPoints,
+                PointMultiplier,
+                ConsoleColor.Gray
+            );
+        }
     }
 }
