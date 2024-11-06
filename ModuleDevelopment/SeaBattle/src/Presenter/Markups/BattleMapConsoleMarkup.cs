@@ -18,12 +18,6 @@ public class BattleMapConsoleMarkup : IConsoleMarkup{
     public UserPoint InsertPoint(string title){
         UserPoint userPoint = new UserPoint();
 
-        userPoint.Title = title;
-
-        userPoint.Left = _currentLeft + (Math.Abs(_iteratorCount - _fixedIteratorCount) * 8);
-
-        userPoint.Top = _currentTop;
-
         if (_iteratorCount == 0){
             userPoint.Top += 4;
 
@@ -31,6 +25,11 @@ public class BattleMapConsoleMarkup : IConsoleMarkup{
 
             _iteratorCount = _fixedIteratorCount;
         }
+        userPoint.Title = title;
+
+        userPoint.Left = _currentLeft + (Math.Abs(_iteratorCount - _fixedIteratorCount) * 8);
+
+        userPoint.Top = _currentTop;
     
         _iteratorCount--;
 
