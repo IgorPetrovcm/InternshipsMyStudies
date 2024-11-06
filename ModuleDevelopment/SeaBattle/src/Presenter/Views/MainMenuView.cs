@@ -1,7 +1,5 @@
 namespace SeaBattle.Presenter.Views;
 
-using SeaBattle.Presenter.Markups;
-
 public class MainMenuView : IView{
     private readonly LinkedList<UserPoint> points;
 

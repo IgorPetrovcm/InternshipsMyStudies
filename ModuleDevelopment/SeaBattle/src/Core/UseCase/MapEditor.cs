@@ -1,6 +1,5 @@
 namespace SeaBattle.Core.UseCase;
 
-using System.Dynamic;
 using SeaBattle.Core;
 using SeaBattle.Core.UseCase.Port;
 
@@ -72,9 +71,4 @@ public class MapEditor{
     ){
         
     }
-
-    // public void AddShip(int length, SideDirection direction, int line, int column){
-        
-    // }
-
 }

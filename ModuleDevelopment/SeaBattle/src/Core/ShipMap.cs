@@ -1,5 +1,3 @@
-using System.Runtime.ConstrainedExecution;
-
 namespace SeaBattle.Core;
 
 public class ShipMap{

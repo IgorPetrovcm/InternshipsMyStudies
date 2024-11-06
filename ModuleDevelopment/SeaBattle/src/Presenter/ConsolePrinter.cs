@@ -1,5 +1,3 @@
-using System.Security.Cryptography.X509Certificates;
-
 namespace SeaBattle.Presenter;
 
 public static class ConsolePrinter{

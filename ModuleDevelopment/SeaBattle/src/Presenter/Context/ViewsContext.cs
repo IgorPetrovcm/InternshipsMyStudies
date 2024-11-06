@@ -1,6 +1,5 @@
 namespace SeaBattle.Presenter.Context;
 
-using SeaBattle.Context;
 using SeaBattle.Presenter.Views;
 
 public class ViewsContext{
