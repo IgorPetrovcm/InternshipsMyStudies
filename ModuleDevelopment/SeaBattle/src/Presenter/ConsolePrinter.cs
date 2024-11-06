@@ -1,3 +1,5 @@
+using System.Security.Cryptography.X509Certificates;
+
 namespace SeaBattle.Presenter;
 
 public static class ConsolePrinter{
@@ -95,25 +97,7 @@ public static class ConsolePrinter{
 
         for (int i = 0; i < pointMultiplier; i++){
             for (int j = 0; j < pointMultiplier; j++){
-                UserPoint point = twoDimensionalPoints[i, j];
-                
-                Console.SetCursorPosition(
-                    point.Left,
-                    point.Top
-                );
-                Console.Write(point.Title);
-
-                Console.SetCursorPosition(
-                    point.Left - 1,
-                    point.Top + 1
-                );
-                Console.Write(String.Concat(Enumerable.Repeat(point.Title, 3)));
-
-                Console.SetCursorPosition(
-                    point.Left,
-                    point.Top + 2
-                );
-                Console.Write(point.Title);
+                PrintBattleMap(twoDimensionalPoints[i, j]);
             }
         }
 
@@ -127,14 +111,80 @@ public static class ConsolePrinter{
         ConsoleColor defaultColor,
         ConsoleColor specifyColor
     ){
+        Console.ForegroundColor = specifyColor;
+
+        for (int i = 0; i < specifyPoints.Length; i++){
+            Tuple<int, int> specifyPointTuple = specifyPoints[i];
+
+            PrintBattleMap(
+                twoDimensionalPoints[specifyPointTuple.Item1, specifyPointTuple.Item2]);
+        }
+
         Console.ForegroundColor = defaultColor;
+
+        int[] iSpecify = specifyPoints.Select(x => x.Item1).ToArray();
+        int[] jSpecify = specifyPoints.Select(x => x.Item2).ToArray();
 
         for (int i = 0; i < pointMultiplier; i++){
             for (int j = 0; j < pointMultiplier; j++){
-                UserPoint point = twoDimensionalPoints[i, j];
-
+                if (iSpecify.Contains(i) && jSpecify.Contains(j))
+                    continue;
                 
+                PrintBattleMap(twoDimensionalPoints[i, j]);
             }
         }
+
+        Console.ResetColor();
+    }
+
+    public static void Print(
+        UserPoint[,] twoDimensionalPoints,
+        int pointMultiplier,
+        Tuple<int, int> specifyPoint,
+        Tuple<int, int>[] staticSpecifyPoints,
+        ConsoleColor defaultColor,
+        ConsoleColor staticSpecifyColor,
+        ConsoleColor specifyColor
+    ){
+        Console.ForegroundColor = staticSpecifyColor;
+
+        for (int i = 0; i < staticSpecifyPoints.Length; i++){
+            Tuple<int, int> staticSpecifyPointTuple = staticSpecifyPoints[i];
+
+            PrintBattleMap(
+                twoDimensionalPoints[staticSpecifyPointTuple.Item1, staticSpecifyPointTuple.Item2]);
+        }
+
+        Console.ForegroundColor = specifyColor;
+
+        List<Tuple<int, int>> excludingFromDefaultPoints = staticSpecifyPoints
+            .Append(specifyPoint)
+            .ToList();
+
+        PrintBattleMap(
+            twoDimensionalPoints[specifyPoint.Item1, specifyPoint.Item2]);
+
+        Console.ForegroundColor = defaultColor;
+
+        int[] iSpecify = excludingFromDefaultPoints.Select(x => x.Item1).ToArray();
+        int[] jSpecify = excludingFromDefaultPoints.Select(x => x.Item2).ToArray();
+
+        for (int i = 0; i < pointMultiplier; i++){
+            for (int j = 0; j < pointMultiplier; j++){
+                if (excludingFromDefaultPoints.Contains(Tuple.Create(i, j)))
+                    continue;
+                
+                PrintBattleMap(twoDimensionalPoints[i, j]);
+            }
+        }
+    }
+    
+    private static void PrintBattleMap(UserPoint point){
+        Console.SetCursorPosition(
+            point.Left,
+            point.Top
+        );
+
+        Console.Write(point.Title);
     }
 }
