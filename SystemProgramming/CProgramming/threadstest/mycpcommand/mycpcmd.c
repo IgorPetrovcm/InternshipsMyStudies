@@ -1,4 +1,4 @@
-# include "include/sutil.h"
+# include "../include/sutil.h"
 // # include <semaphore.h>
 # include <string.h>
 # include <stdlib.h>
