@@ -5,41 +5,39 @@
 # include <sys/stat.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <errno.h>
 
 # ifndef BUFF_SIZE
-# define BUFF_SIZE 1024
+# define BUFF_SIZE_T 1024
 # endif
 
 int main(int argc, char * argv[]){
-    char buffer[BUFF_SIZE];
+    char buffer[BUFF_SIZE_T];
     ssize_t numRead, numWrite;
     int fileFD, openFlags;
     mode_t perms;
+    char * file_path;
 
     if (argc < 2 || strcmp(argv[1], "--help") == 0){
         errUsage("%s -[a] file_path\n", argv[0]);
     }
 
-    perms = S_IWUSR | S_IRUSR | S_IWGRP | S_IRGRP
-        | S_IWOTH | S_IROTH;
+    perms = S_IWUSR | S_IRUSR | S_IWGRP | S_IRGRP | S_IWOTH | S_IROTH;
     openFlags = O_CREAT | O_WRONLY | O_TRUNC;
+
+    file_path = argv[1];
 
     if (strcmp(argv[1], "-a") == 0){
         openFlags |= O_APPEND;
+        openFlags = openFlags ^ O_TRUNC;
+        file_path = argv[2];
     }
 
-    if (fileFD = open(argv[1], openFlags, perms) == -1){
+    if ((fileFD = open(file_path, openFlags, perms)) == -1){
         errExit("open file");
     }
 
-    while ((numRead = read(STDIN_FILENO, buffer, BUFF_SIZE)) > 0){
-        buffer[numRead] = '\0';
-
-        for (register int i = 0; i < numRead; i++){
-            printf("%c", buffer[i]);
-        }
-        printf("\n");
-
+    while ((numRead = read(STDIN_FILENO, buffer, BUFF_SIZE_T)) > 0){
         printf("READ %d BYTES\n", numRead);
         if ((numWrite = write(fileFD, buffer, numRead)) != numRead){
             printf("WRITE %d BYTES IN FILE\n", numWrite);
@@ -54,7 +52,6 @@ int main(int argc, char * argv[]){
     if (close(fileFD) == -1){
         errExit("close file");
     }
-    free(buffer);
 
     exit(EXIT_SUCCESS);
 }

@@ -30,7 +30,7 @@ void errOutput(const int isUseErr, const int errnum, const char * format, va_lis
 void errExit(const char * format, ...){
     va_list ap;
     va_start(ap, format);
-    errOutput(0, errno, format, ap);
+    errOutput(1, errno, format, ap);
     va_end(ap);
     exit(EXIT_FAILURE);
 }
@@ -38,9 +38,17 @@ void errExit(const char * format, ...){
 void err_exit(const char * format, ...){
     va_list ap;
     va_start(ap, format);
-    errOutput(1, 0, format, ap);
+    errOutput(0, 0, format, ap);
     va_end(ap);
     _exit(EXIT_FAILURE);
+}
+
+void errExitEN(int errnum, const char * format, ...){
+    va_list ap;
+    va_start(ap, format);
+    errOutput(1, errnum, format, ap);
+    va_end(ap);
+    exit(EXIT_FAILURE);
 }
 
 void errUsage(const char * format, ...){
